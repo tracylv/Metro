@@ -26,7 +26,7 @@ var config = {
 , db: {
     mongo: {
       username: null
-    , dbname: 'production'
+    , dbname: 'metro'
     , prefix: null
     , password: null
     , host: 'localhost'
