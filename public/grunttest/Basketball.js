@@ -1,7 +1,7 @@
-var a = 1;
+var a = 4;
 
 
-var b = 2;
+var b = 5;
 
 
-var c = 3;
+var c = 6;
