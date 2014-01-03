@@ -4,6 +4,20 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
+        less: {
+            css: {
+                options:{
+                    paths: ["public/grunttest/css"],
+                    cleancss: true
+                },
+
+                files:{
+                    "public/grunttest/css/s.min.css": ["public/grunttest/css/s*.less","public/grunttest/css/s3.css"]
+                }
+
+            }
+        },
+
         concat:{
             options: {
                 banner: '/* banner */\n'
@@ -32,24 +46,31 @@ module.exports = function(grunt) {
             }
         },
 
+        csslint: {
+            files:['public/grunttest/css/*.css']
+        },
+
         jshint: {
             files:['public/grunttest/*.js']
         },
 
         watch: {
-            files:['<%= jshint.files %>'],
-            tasks:['jshint']
+            files:['<%= jshint.files %>','<%= csslint.files %>'],
+            tasks:['jshint','csslint']
         }
+
 
     });
 
     // Load the plugin that provides the "uglify" task.
+    grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-csslint');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Default task(s).
-    grunt.registerTask('default', ['jshint', 'concat', 'uglify']);
+    grunt.registerTask('default', ['less', 'csslint', 'jshint', 'concat', 'uglify']);
 
 };
